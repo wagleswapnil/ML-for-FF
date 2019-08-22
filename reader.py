@@ -19,5 +19,8 @@ for f in files:
         elif f.endswith('.itp'):
             instance.itp_parser()
             break
+        else:
+            print (f)
+            continue
         i=i+1
         
