@@ -13,10 +13,10 @@ for r, d, f in os.walk(path):
 for f in files:
         instance= File_Parser(f, i)
         if f.endswith('.txt'):
-            continue
             instance.txt_parser(f)
             break
         elif f.endswith('.itp'):
+            continue
             instance.itp_parser()
             break
         else:
