@@ -5,3 +5,5 @@ This is a machine learning project to get an optimized set of force-field (FF) p
 For this project, the github commits will be made time-to-time and details for every commit will be briefly explained. All the history of the commits' details will be removed once the project is complete and only the full description of the code will be available. 
 
 Commits on 16.08.2019 and 22.08.2019: File parser code is written which reads a .itp file (gromacs format) as well as a "Fitness File" that has the values of the order parameters values for the lipid tails, both in experiments and in MD simulations.
+
+Commit on 26.08.2019: The reader program is completed. It reads the itp and txt (containg the output values of order parameters, obtained from MD simulaitons) and generated the input and output vectors, to be read by the subsequent program (the neural network).
