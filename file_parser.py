@@ -1,4 +1,16 @@
-class File_Parser(object):
+import numpy
+numpy.set_printoptions(suppress=True)
+
+class File_Parser(object):    
+
+    global o_vector
+    global i_vector
+    global atomnames
+    o_vector = numpy.empty((82,2))
+    i_vector = numpy.empty(82)
+    atomnames = ['' for atomnames in range(82)]
+    
+    
     def __init__(self, path, id):
         self.id = id
         self.path= path
@@ -22,7 +34,7 @@ class File_Parser(object):
     def parse_itp(path):
         f = open (path, "r")
         flag = 0
-        i=0
+        content = []
         print (path)
         for x in f.readlines():
             data=x.split()
@@ -39,45 +51,51 @@ class File_Parser(object):
             elif ((data[0]=="[") and (data[2]=="]")):
                 flag = 0
             if ((flag==1) and data[0] != ";" and len(data)):
-                i=i+1
-                File_Parser.create_vectors(sign,data)
+                x = x + sign
+                content.append(x)
+        File_Parser.create_vectors(content)
         f.close()
         
     def parse_txt(path):
         f = open (path, "r")
         print (path)
         i=0
-        
+        content=[]
         for x in f.readlines():
             data=x.split()
             if ((data[0]=="fitness") or (data[0]=="final")):
                 continue
             else:
                 sign = "out"
-                File_Parser.create_vectors(sign, data)
+                x = x + sign
+                content.append(x)
+        File_Parser.create_vectors(content)
         print ("i=" + str(i))
         f.close()        
         
-    def create_vectors(case, info):
-        i_vector = []
-        o_vector = []
-        if (case == "atoms" or case == "atomtypes"):
-            if (case == "atoms"):
-                for i in len(i_vector):
-                    if info[1] == items:
-                        info[6]=i_vector[1]
+    def create_vectors(info):
+        j=0
+        for line in info:
+            y = line.split()
+            if (y[-1] == "atoms" or y[-1] == "atomtypes"):
+                if (y[-1] == "atomtypes"):
+                    if (y[0] in atomnames):
+                        print ("double entry" + y[0])
                     else:
-                        i_vector[:][0].append(info[1])
-                        i_vector[:][1].append(info[6])
-            if (case == "atomtypes"):
-                for i in len(i_vector):
-                    if info[0] == items:
-                        i_vector[:][2].append(info[5])
+                        atomnames[j] = y[0]
+                        o_vector[j][0] = round(float(y[5]),6)
+                        j = j+1
+                elif (y[-1] == "atoms"):
+                    if (y[1] in atomnames):
+                        index = atomnames.index(y[1])
+                        o_vector[index][1] = round(float(y[6]),3)
                     else:
-                        i_vector[:][0].append(info[0])
-                        i_vector[:][2].append(info[5])
-            elif (case == "atomtypes"):
-                i_vector [:][1] = info [5]
-        else:
-            print (case, len(info))
-            print (info)
+                        print ("atomname not found in 'atoms' section")
+                        print (y[1])
+            elif (y[-1] == "out"):
+                i_vector[j] = round(float(y[3]),3)
+        print (atomnames)
+        print (i_vector)
+        print (o_vector)
+        
+    
