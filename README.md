@@ -6,4 +6,6 @@ For this project, the github commits will be made time-to-time and details for e
 
 Commits on 16.08.2019 and 22.08.2019: File parser code is written which reads a .itp file (gromacs format) as well as a "Fitness File" that has the values of the order parameters values for the lipid tails, both in experiments and in MD simulations.
 
-Commit on 26.08.2019: The reader program is completed. It reads the itp and txt (containg the output values of order parameters, obtained from MD simulaitons) and generated the input and output vectors, to be read by the subsequent program (the neural network).
+Commit on 26.08.2019: The reader program is almost completed. It reads the itp and txt (containg the output values of order parameters, obtained from MD simulaitons) and generated the input and output vectors, to be read by the subsequent program (the neural network).
+
+Commit on 01.09.2019: The readrer program is completed. It parses the txt and itp files and yields the input and output venctors as numpy arrays!
