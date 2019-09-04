@@ -1,15 +1,19 @@
+#################################################################################################
+# The class contains the methods used for parsing text from the txt and itp files and generate  #
+# input and output vectors (numpy arrays) from the read text.                                   #
+#                                                                                               #
+# The author of this program is:                                                                #
+# Swapnil Wagle                                                                                 #
+# Max Planck Institute of Colloids and Interfaces, Potsdam, Germany                             #
+# E-mail id: swapnil.wagle@mpikg.mpg.de                                                         #
+#################################################################################################
+
 import numpy
 numpy.set_printoptions(suppress=True)
 
+# Initialization of the class
 class File_Parser(object):    
 
-#    global o_vector
-#    global i_vector
-#    global atomnames
-#    o_vector = numpy.empty((82,2))
-#    i_vector = numpy.empty(82)
-#    atomnames = ['' for atomnames in range(82)]
-    
     def __init__(self, i_path, o_path, atomtypes, optypes):
         self.i_path = i_path
         self.o_path = o_path
@@ -84,7 +88,7 @@ class File_Parser(object):
                 else:
                     print(y[1] + "does not exist in the list of atomtypes: ATOM secion")
             else:
-                print("Check the entry " + line)
+#                print("Check the entry " + line)
                 o_vector[self.atomtypes.index(y[0])] = numpy.NaN
                 o_vector[self.atomtypes.index(y[0]) + len(self.atomtypes)] = numpy.NaN
         return (i_vector, o_vector)
