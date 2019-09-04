@@ -22,13 +22,13 @@ class Network(object):
         n = len(training_data)
         for j in range(epochs):                                                      # if range() function does not work, try xrange(). Check google for details 
             random.shuffle(training_data)
-            mini_batches = [training_data[k: k + mini_batch_size] for k in xrange(0, n, mini_batch_size)]
+            mini_batches = [training_data[k: k + mini_batch_size] for k in range(0, n, mini_batch_size)]
             for mini_batch in mini_batches:
                 self.update_mini_batch(mini_batch, eta)
             if test_data:
-                print "Epoch {0}: {1} / {2}". format(j, self.evaluate(test_data), n_test)
+                print ("Epoch {0}: {1} / {2}". format(j, self.evaluate(test_data), n_test))
             else:
-                print "Epoch {0} complete". format(j)
+                print ("Epoch {0} complete". format(j))
                 
     def update_mini_batch(self, mini_batch, eta):
         nabla_b = [numpy.zeros(b.shape) for b in self.biases]
@@ -49,12 +49,13 @@ class Network(object):
         for b, w in zip(self.biases, self.weights):
             z = numpy.dot(w, activation) + b
             zs.append(z)
-            activation = sigmoid(z)
+            activation = self.sigmoid(z)
             activations.append(activation)
+        print(activations[-1].shape, y.shape)
         delta = self.cost_derivative(activations[-1], y) * sigmoid_prime(zs[-1])
         nabla_b[-1] = delta
         nabla_w[-1] = numpy.dot(delta, activations[-2].transpose())
-        for l in xrange(2, self.num_layers):
+        for l in range(2, self.num_layers):
             z = zs[-1]
             sp = sigmoid_prime(z)
             delta = numpy.dot(self.weights[-l+1].transpose(),delta) * sp
@@ -63,13 +64,13 @@ class Network(object):
         return (nabla_b, nabla_w)
         
     def evaluate(self, test_data):
-        test_results = [numpy.argmax(self.feedforward(x)), y) for (x, y) in test_data]
+        test_results = [(numpy.argmax(self.feedforward(x)), y) for (x, y) in test_data]
         return sum(int(x == y) for (x, y) in test_results)
         
     def cost_derivative(self, output_activations, y):
         return (output_activations - y)
         
-    def sigmoid(z):
+    def sigmoid(self, z):
         return 1.0/(1.0 + numpy.exp(-z))
         
     def sigmoid_prime(z):
