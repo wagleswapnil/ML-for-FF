@@ -1,8 +1,8 @@
 #################################################################################################
-# The class contains the methods used for parsing text from the txt and itp files and generate  #
-# input and output vectors (numpy arrays) from the read text.                                   #
+# The class File_Parser contains the methods used for parsing text from the txt and itp         #
+# files and generate  input and output vectors (numpy arrays) from the read text.               #
 #                                                                                               #
-# The author of this program is:                                                                #
+# The author of this code is:                                                                   #
 # Swapnil Wagle                                                                                 #
 # Max Planck Institute of Colloids and Interfaces, Potsdam, Germany                             #
 # E-mail id: swapnil.wagle@mpikg.mpg.de                                                         #
@@ -25,7 +25,10 @@ class File_Parser(object):
         i_list = (self.parse_txt(i_path))
         o_list = (self.parse_itp(o_path))
         return(self.create_vectors(i_list, o_list, atomtypes, optypes))
-    
+
+# Parser program for the itp files. It takes the itp file's path as input and extract the useful data out.
+# A numpy array (o_vector) is created by calling the method "create_vectors", which is sent back to the processor
+# program and is subsequently used as the output vector for training the neural network.
     def parse_itp(self, path):
         f = open (path, "r")
         flag = 0
@@ -51,6 +54,9 @@ class File_Parser(object):
         f.close()
         return(content)
         
+# Parser program for the txt files. It takes the txt file's path as input and extract the useful data out.
+# A numpy array (i_vector) is created by calling the method "create_vectors", which is sent back to the processor 
+# program and is subsequently used as the input vector for training the neural network.
     def parse_txt(self, path):
         f = open (path, "r")
         i=0
@@ -63,7 +69,10 @@ class File_Parser(object):
                 content.append(x)
         f.close()        
         return(content)
-        
+
+# This method of the class deals with transforming the parsed data into input and output numpy arrays for
+# training the neural network. It takes the extracted data from the itp and txt file parser methods, and the 
+# optypes and atomtypes indices for arranging these data into two one-dimensional numpy arrays (i_vector and o_vector).
     def create_vectors(self, i_list, o_list, atomtypes, optypes):
         i_vector = numpy.empty(len(self.optypes))
         o_vector = numpy.empty((len(self.atomtypes)*2))

@@ -55,11 +55,10 @@ o_vectors = numpy.empty([0, len(atomtypes)*2], dtype = numpy.float64)
 
 
 # This is the first part of the processing unit, i.e. the files parser, 
-# it is an abstract part of the pasring process, in which the files are read one by one 
-# and useful data is extracted out of the files. The data is sent to another program in 
-# the Class 'File_Parser', where it is transformed into numpy arrays based on the indexing 
-# of the optyeps and atomtypes lists. The numpy arrays (i_vectors and o_vectors) are utilized
-# further by the neural network, which is introduced in the second part of this program.
+# it is an abstract part of the pasring process, in which the files are listed. The path is then 
+# sent to another program in the Class 'File_Parser', where it is transformed into numpy arrays 
+# based on the indexing of the optyeps and atomtypes lists. The numpy arrays (i_vectors and o_vectors) 
+# are utilized further by the neural network, which is introduced in the second part of this program.
 i=0
 for r, d, f in os.walk(path):
     for file in f:
@@ -110,9 +109,15 @@ for i_vector, o_vector in zip(i_vectors, o_vectors):
 # This section deals with instancing the Neural Network class (named Network) and calling its methods
 # eta is the learning rate, layers_sizes is a list containg the number of neurons in each of the layers with 
 # first and last layer being the input and output vectors, respectively.
+test_data = numpy.empty(0, dtype = numpy.float64)
+f = open('./experimental_op.txt', "r")
+for x in f.readlines():
+    data = x.split()
+    numpy.append(test_data, data[1])
+f.close()
 eta = 1
 layers_sizes = [len(optypes), 200, len(atomtypes) *2]
 network = Network(layers_sizes)
-network.SGD(training_data, 10, 8, eta)
+network.SGD(training_data, 10, 8, eta, test_data)
             
         
