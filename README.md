@@ -18,8 +18,8 @@ E-mail: swapnil.wagle[at]mpikg[dot]mpg[dot]de
 For getting an idea about the MD simulations and neural networks, please refer to the following links:
 
 MD simulations
-Wikipedia read: https://en.wikipedia.org/wiki/Molecular_dynamics
-Book by Michael P. Allen: https://udel.edu/~arthij/MD.pdf
+Wikipedia read: https://en.wikipedia.org/wiki/Molecular_dynamics \n
+Book by Michael P. Allen: https://udel.edu/~arthij/MD.pdf \n
 Presentation by Prof. Dror, Stanford: https://web.stanford.edu/class/cs279/lectures/lecture4.pdf
 Gromacs simulation package: http://www.gromacs.org
 
