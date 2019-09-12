@@ -6,26 +6,26 @@ The code is optimized to be able to read the output files (example of the files 
 
 # Author
 
-The program is written by 
+The program is written by <br/>
 Swapnil Wagle <br/>
-PhD Student, Dept. of Theory and Bioystems,
-Max Planck Institute of Colloids and Interfaces, 
-Potsdam, Germany
+PhD Student, Dept. of Theory and Bioystems <br/>
+Max Planck Institute of Colloids and Interfaces <br/> 
+Potsdam, Germany <br/>
 E-mail: swapnil.wagle[at]mpikg[dot]mpg[dot]de
 
 # Reading Materials
 
 For getting an idea about the MD simulations and neural networks, please refer to the following links:
 
-MD simulations
-Wikipedia read: https://en.wikipedia.org/wiki/Molecular_dynamics \n
-Book by Michael P. Allen: https://udel.edu/~arthij/MD.pdf \n
-Presentation by Prof. Dror, Stanford: https://web.stanford.edu/class/cs279/lectures/lecture4.pdf
-Gromacs simulation package: http://www.gromacs.org
+MD simulations <br/>
+Wikipedia read: https://en.wikipedia.org/wiki/Molecular_dynamics <br/>
+Book by Michael P. Allen: https://udel.edu/~arthij/MD.pdf <br/>
+Presentation by Prof. Dror, Stanford: https://web.stanford.edu/class/cs279/lectures/lecture4.pdf <br/>
+Gromacs simulation package: http://www.gromacs.org <br/>
 
-Neural networks:
-Wikipedia read: https://en.wikipedia.org/wiki/Artificial_neural_network
+Neural networks <br/>
+Wikipedia read: https://en.wikipedia.org/wiki/Artificial_neural_network <br/>
 Introduction to feed forward neural network and back-propogation method:
-https://skymind.ai/wiki/neural-network
+https://skymind.ai/wiki/neural-network <br/>
 An excellent and detailed description of the methods in feed forward neural networks (online book by Dr. Michael Nielsen):
 http://neuralnetworksanddeeplearning.com
