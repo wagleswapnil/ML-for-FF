@@ -7,9 +7,9 @@ The code is optimized to be able to read the output files (example of the files 
 # Author
 
 The program is written by 
-Swapnil Wagle
-PhD Student, Dept. of Theory and Bioystems
-Max Planck Institute of Colloids and Interfaces
+Swapnil Wagle,
+PhD Student, Dept. of Theory and Bioystems,
+Max Planck Institute of Colloids and Interfaces, 
 Potsdam, Germany
 E-mail: swapnil.wagle[at]mpikg[dot]mpg[dot]de
 
