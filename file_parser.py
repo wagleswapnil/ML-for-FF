@@ -80,6 +80,8 @@ class File_Parser(object):
             y = line.split()
             if y[0] in self.optypes:
                 i_vector[self.optypes.index(y[0])] = round(float(y[2]), 10)
+            elif y[0] not in self.optypes:
+                print (y[0] + " is not present in the optype list")
             else: 
                 i_vector[self.optypes.index(y[0])] = numpy.NaN
                 print(y[0] + "does not exist in the list of optypes")
@@ -89,6 +91,8 @@ class File_Parser(object):
             if (y[-1] == "atomtype"):
                 if y[0] in self.atomtypes:
                     o_vector[self.atomtypes.index(y[0])] = round(float(y[5]),10)
+                elif y[0] not in self.atomtypes:
+                    print (y[0] + " is not present in the atomtype list")
                 else:
                     print(y[0] + "does not exist in the list of atomtypes: ATOMTYPE secion")
             elif (y[-1] == "atom"):
@@ -97,7 +101,6 @@ class File_Parser(object):
                 else:
                     print(y[1] + "does not exist in the list of atomtypes: ATOM secion")
             else:
-#                print("Check the entry " + line)
                 o_vector[self.atomtypes.index(y[0])] = numpy.NaN
                 o_vector[self.atomtypes.index(y[0]) + len(self.atomtypes)] = numpy.NaN
         return (i_vector, o_vector)

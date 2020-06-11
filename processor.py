@@ -17,10 +17,10 @@ import numpy
 from os import path
 from file_parser import File_Parser
 import network
-from network import Network
+from network import Network1
 
 # The path for the directory, where all the data is located
-path= '/Users/wagle/Downloads/FF_for_swapnil/test/head_n_tails2'    
+path = '/Users/swapnil/Documents/FF_for_swapnil/test'    
 
 # Initialization of the variables
 files =[]
@@ -99,25 +99,26 @@ for r, d, f in os.walk(path):
 #  [[input array 2] [output array 2]]
 #  [[input array 3] [output array 3]]
 #  ...]
-training_data = numpy.empty([len(i_vectors), 2], dtype = numpy.ndarray)
+training_data = numpy.empty([int(len(i_vectors)-1), 2], dtype = numpy.ndarray)
 i = 0
 for i_vector, o_vector in zip(i_vectors, o_vectors):
-    training_data[i,0] = i_vector
-    training_data[i,1] = o_vector
+    i_vector = i_vector[numpy.newaxis]
+    i_vector = i_vector.transpose()
+    o_vector = o_vector[numpy.newaxis]
+    o_vector = o_vector.transpose()
+    if i < len(training_data):
+        training_data[i,0] = i_vector
+        training_data[i,1] = o_vector
+    else:
+        test_data = i_vector
     i = i + 1
 
 # This section deals with instancing the Neural Network class (named Network) and calling its methods
 # eta is the learning rate, layers_sizes is a list containg the number of neurons in each of the layers with 
 # first and last layer being the input and output vectors, respectively.
-test_data = numpy.empty(0, dtype = numpy.float64)
-f = open('./experimental_op.txt', "r")
-for x in f.readlines():
-    data = x.split()
-    numpy.append(test_data, data[1])
-f.close()
-eta = 1
-layers_sizes = [len(optypes), 200, len(atomtypes) *2]
-network = Network(layers_sizes)
+eta = 1             # Learning Rate
+layers_sizes = [len(optypes), 200, len(atomtypes) *2]   # Layer structure: Input Layer, Hidden Layer, Output Layer
+network = Network1(layers_sizes)
 network.SGD(training_data, 10, 8, eta, test_data)
             
         

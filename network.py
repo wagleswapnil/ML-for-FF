@@ -12,13 +12,13 @@ import random
 import numpy
 
 # Initialization of the class
-class Network(object):
+class Network1(object):
     
     def __init__(self, sizes):
         self.num_layers = len(sizes)
         self.sizes = sizes
         self.biases = [numpy.random.randn(y, 1) for y in sizes[1:]]
-        self.weights = [numpy.random.randn(y, x) for x, y in zip(sizes[:-1], sizes[1:])]    
+        self.weights = [numpy.random.randn(y, x) for x, y in zip(sizes[:-1], sizes[1:])]
         
         
 # The feed_forward method takes input 'a' which is the input vector for any layer of the neural network
@@ -27,7 +27,7 @@ class Network(object):
     def feed_forward(self, a):
         for b, w in zip(self.biases, self.weights):
             a = self.sigmoid(numpy.dot(w, a) + b)
-            return a
+        return a
 
 # The SGD (Stochastic Gradient Descent) method takes the training data (training_data), number of iterations for
 # training the netowk (epochs), the size of the training data in each iteration (mini_batch_size) and the 
@@ -36,18 +36,22 @@ class Network(object):
 # each of the mini batches to the update_mini_batch method for updating the biases and weights of each of the 
 # (neurons of the) layers in the network. 
     def SGD(self, training_data, epochs, mini_batch_size, eta, test_data):
-        if test_data:
+        if len(test_data) == 0:
+            n_test = 0
+        else:
             n_test = len(test_data)
-        n = len(training_data)
+        n = int(len(training_data) * 0.80)
         for j in range(epochs):                        # if range() function does not work, try xrange(). Check google for details- 
             random.shuffle(training_data)              # -as it depends on the python version
             mini_batches = [training_data[k: k + mini_batch_size] for k in range(0, n, mini_batch_size)]
             for mini_batch in mini_batches:
                 self.update_mini_batch(mini_batch, eta)
-            if test_data:
+            if len(test_data) != 0:
                 print ("Epoch {0}: {1} / {2}". format(j, self.evaluate(test_data), n_test))
             else:
                 print ("Epoch {0} complete". format(j))
+
+
 
 # The update_mini_batch method takes the mini batch and learning rate from the SGD method for training the network.
 # For updating the biases and weights, it calls the 'backprop' method for the calclation of the error in each of 
@@ -73,17 +77,13 @@ class Network(object):
         activations = [x]
         zs = []
         for b, w in zip(self.biases, self.weights):
-            print (w.shape, activation.shape, b.shape)
             z = numpy.dot(w, activation) + b
-            print(z.shape)
             zs.append(z)
             activation = self.sigmoid(z)
             activations.append(activation)
-            temp = numpy.transpose(activation)
-            temp_z = numpy.transpose(z)
-        delta = self.cost_derivative(temp[-1], y) *  self.sigmoid_prime(temp_z[-1])
+        delta = self.cost_derivative(activations[-1], y) *  self.sigmoid_prime(zs[-1])
         nabla_b[-1] = delta
-        nabla_w[-1] = numpy.dot(delta, temp[-2].transpose())
+        nabla_w[-1] = numpy.dot(delta, activations[-2].transpose())
         for l in range(2, self.num_layers-1):
             z = zs[-1]
             sp = self.sigmoid_prime(z)
@@ -97,7 +97,7 @@ class Network(object):
 # by self.weights and self.biases, respectively, are being updated by each round of training iteration (epoch) and the 
 # output is being monitored in the 'SGD' by the print statements.
     def evaluate(self, test_data):
-        test_results = self.feedforward(test_data)
+        test_results = self.feed_forward(test_data)
         return (test_results)
         
     def cost_derivative(self, output_activations, y):
